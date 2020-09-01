@@ -1,0 +1,42 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Product List</h2>
+  </div>
+  <div class="panel-body">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="keyword">Name</label>
+        <input [formControl]="queryFieldName" class="form-control" type="text" id="keyword" placeholder="search for name product..." autofocus/>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="category">Category</label>
+        <select name="category" id="category" formControlName="category" 
+          class="form-control" [formControl]="queryFieldCategory" >
+            <option [ngValue]="null" >search for category product...</option>
+            <option *ngFor="let symbol of keys(categorys)" [ngValue]="symbol">{{categorys[symbol]}}</option>
+        </select>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{product.name}}</td>
+          <td>{{categorys[product.category]}}</td>
+          <td>{{product.price | currency: 'BRL'}}</td>
+          <td><button (click)="productUpdate(product.id)" class="btn btn-primary" style="margin-left: 10px">Update</button>
+              <button (click)="deleteProduct(product.id)" class="btn btn-danger" style="margin-left: 10px">Delete</button>
+              <button (click)="productDetails(product.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
